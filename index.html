@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>夠鐘返工資訊站</title>
+  <meta name="description" content="插電就用的小螢幕。睇時間、天氣、更表，同三條巴士仲有幾耐到。">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5c6b82;
+      --line: #e4ebf5;
+      --sky: #e8f2ff;
+      --card: #ffffff;
+      --red: #c81e1e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang HK", "Noto Sans TC", "Heiti TC", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 280px);
+      line-height: 1.65;
+    }
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: 0.02em;
+    }
+    .lead {
+      margin: 0;
+      font-size: 18px;
+      color: var(--muted);
+    }
+    .maker {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--sky);
+      color: #24527a;
+      font-size: 14px;
+    }
+    section {
+      margin-top: 22px;
+      padding: 18px 18px 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 12px; padding-left: 1.2em; }
+    li { margin: 0 0 6px; }
+    .bus {
+      display: grid;
+      grid-template-columns: 72px 1fr 72px;
+      gap: 8px;
+      align-items: center;
+      margin: 0 0 14px;
+      padding: 12px;
+      border: 2px solid var(--red);
+      border-radius: 12px;
+      background: #fff;
+    }
+    .bus b {
+      color: var(--red);
+      font-size: 28px;
+      line-height: 1;
+    }
+    .bus .mid { font-size: 14px; }
+    .bus .time { text-align: right; font-weight: 700; }
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>夠鐘返工資訊站</h1>
+      <p class="lead">一部插電就用嘅小螢幕。唔使電話，亦唔使另外開應用程式。插電之後喺螢幕上面撳，就可以睇時間、今日天氣、今日同聽日返咩更，同三條巴士仲有幾耐到。</p>
+      <span class="maker">NurseForgeHK 獨力製作</span>
+    </header>
+
+    <section>
+      <h2>時間同天氣</h2>
+      <p>顯示香港時間，去到分鐘，每分鐘轉一次。旁邊有天氣圖、氣溫同濕度。第一行係簡短狀況，第二行係落雨機率：低、中低、中、中高、高。呢個係天文台嘅顯著降雨五級，唔係百分比。</p>
+      <p>颱風、暴雨、雷暴會另外出圖示。晚上七點到朝早六點，時間版背景會轉做深紫色。巴士版維持白底紅字。</p>
+    </section>
+
+    <section>
+      <h2>更表</h2>
+      <p>主畫面右下角可以顯示一句黃字黑邊，例如「今日 A　聽日 P」。設定入面可以開或者關呢句句子。關掉之後，句子會收起，已經填好嘅更表仍然留住。</p>
+      <p>「輸入更表」可以填今個月同下個月。撳一日就會輪更號。預設有 P、A、N、D、O、AL，亦可以加最多三個自訂更號，每個最多三個英文字母。</p>
+      <p>「自訂」入面嘅「撳走更號」可以剷走用唔著嘅預設或者自訂。如果淨係返 A、P，其餘可以剷走。「還原」會返晒六個預設，自訂更號保留。已經寫低嘅日子會留住舊號，再撳一下先清走。</p>
+    </section>
+
+    <section>
+      <h2>三條巴士線</h2>
+      <div class="bus">
+        <b>N680</b>
+        <div class="mid">去程<br>往烏溪沙站<br>站 富寶花園</div>
+        <div class="time">最近 14分<br>下一班 36分</div>
+      </div>
+      <p>左下角「巴士」可以同時鐘版互轉。最多三條線。搜尋時會先試九巴第 1 至第 3 種走線，沒有就試嶼巴，再沒有就試城巴。九巴同城巴一齊行嘅路線，會合併最近兩班。</p>
+      <p>每張卡左邊係大號粗體路線號碼，中間係去程或回程、終點同站名，右邊係最近同下一班，時間同樣係粗體。五分鐘或以內會變紅，到站寫「即將」。大約每 30 秒更新一次。</p>
+    </section>
+
+    <section>
+      <h2>設定</h2>
+      <ul>
+        <li>輸入更表、調整光暗、系統更新</li>
+        <li>睡眠模式：畫面熄咗，點一下就醒</li>
+        <li>關機：之後要撳機身嘅重置掣先至再開得返</li>
+        <li>關於本設備：有呢一頁嘅二維碼，用電話掃就會打開</li>
+      </ul>
+      <p>晚上十點到朝早六點，螢幕會去到最暗。點一下會去到最光，手指放開大約 20 秒之後再暗。朝早六點會變返最光，並記住日間亮度。日間仍然可以用「調整光暗」。</p>
+    </section>
+
+    <section>
+      <h2>更新同記憶</h2>
+      <p>連上 Wi-Fi 之後會檢查有冇新版本，之後大約每 24 小時再檢查。如果有新版本，更新完先至用得返。檢查失敗唔會鎖住部機，過一陣會再試。</p>
+      <p>Wi-Fi、三條巴士線同更表會跨更新保留。重置掣只會重新開機，唔會清走呢啲資料。部機沒有電池，要插電使用。</p>
+    </section>
+
+    <footer>
+      呢一頁係裝置「關於本設備」二維碼打開嘅介紹。版本號會顯示喺裝置嘅關於頁同系統更新頁。
+    </footer>
+  </main>
+</body>
+</html>
