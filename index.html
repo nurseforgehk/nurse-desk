@@ -37,14 +37,30 @@
       font-size: 18px;
       color: var(--muted);
     }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
     .maker {
       display: inline-block;
-      margin-top: 14px;
       padding: 6px 12px;
       border-radius: 999px;
       background: var(--sky);
       color: #24527a;
       font-size: 14px;
+    }
+    .shop {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
     }
     section {
       margin-top: 16px;
@@ -152,7 +168,10 @@
     <header>
       <h1>夠鐘返工資訊站</h1>
       <p class="lead">插電就用。喺螢幕上面撳，就可以睇時間、天氣、更表，同自己揀嘅巴士仲有幾耐到。</p>
-      <span class="maker">NurseForgeHK 獨力製作</span>
+      <div class="links">
+        <span class="maker">NurseForgeHK 獨力製作</span>
+        <a class="shop" href="https://nurseforge-web.vercel.app">去睇護士鍛造工場</a>
+      </div>
     </header>
 
     <section>
