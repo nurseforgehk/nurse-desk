@@ -77,7 +77,74 @@
       margin-top: 20px;
       color: var(--muted);
       font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
     }
+    .dev-link {
+      border: 0;
+      padding: 0;
+      background: none;
+      color: var(--muted);
+      font: inherit;
+      font-size: 14px;
+    }
+    .dev-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(17, 19, 21, .72);
+    }
+    .dev-layer[hidden] { display: none; }
+    .dev-card {
+      width: min(420px, 100%);
+      max-height: min(720px, 100%);
+      overflow: auto;
+      padding: 18px;
+      border-radius: 18px;
+      background: #111;
+      color: #fff;
+    }
+    .dev-card h2 { margin: 8px 0 14px; text-align: center; font-size: 22px; }
+    .dev-top { display: flex; justify-content: space-between; align-items: center; }
+    .dev-top button, .pad button, .dev-card .close {
+      border: 0;
+      border-radius: 12px;
+      background: #313131;
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+    }
+    .dev-top button, .dev-card .close { min-height: 40px; padding: 0 14px; }
+    .pin {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 8px 0 6px;
+    }
+    .pin i {
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #313131;
+      border-radius: 12px;
+      font-style: normal;
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .pin i.on { border-color: #0884f8; }
+    .pin-msg { min-height: 24px; margin: 0 0 10px; color: #f89c08; text-align: center; font-weight: 700; }
+    .pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .pad button { height: 52px; font-size: 22px; }
+    .versions { display: grid; gap: 10px; margin-top: 8px; }
+    .versions article { padding: 12px 14px; border-radius: 14px; background: #1c1c1c; }
+    .versions h3 { margin: 0 0 6px; color: #6eb8fc; font-size: 16px; }
+    .versions ul { margin: 0; padding-left: 1.15em; }
+    .versions li { margin: 0 0 4px; }
   </style>
 </head>
 <body>
@@ -134,7 +201,122 @@
       </ul>
     </section>
 
-    <footer>電話掃裝置上嘅二維碼，就會打開呢一頁。</footer>
+    <footer>
+      <span>電話掃裝置上嘅二維碼，就會打開呢一頁。</span>
+      <button class="dev-link" id="dev-open" type="button">開發者</button>
+    </footer>
   </main>
+
+  <div class="dev-layer" id="dev-layer" hidden>
+    <section class="dev-card" id="dev-lock">
+      <div class="dev-top"><button type="button" id="dev-close">返回</button><span></span></div>
+      <h2>開發者</h2>
+      <div class="pin" id="dev-pin" aria-label="密碼"><i></i><i></i><i></i><i></i></div>
+      <p class="pin-msg" id="dev-msg"></p>
+      <div class="pad" id="dev-pad"></div>
+    </section>
+    <section class="dev-card" id="dev-log" hidden>
+      <div class="dev-top"><button type="button" id="dev-back">返回</button><span>版本紀錄</span></div>
+      <div class="versions" id="dev-versions"></div>
+    </section>
+  </div>
+
+  <script>
+    const pinCode = "0407";
+    const releases = [
+      ["1.0.15", ["時間同氣溫改做粗體", "短路線號碼放大，放喺卡嘅左邊", "到站時間靠右", "設定按鈕改成一行", "光暗嗰八條棒拉高"]],
+      ["1.0.14", ["更號改橙色，今日同聽日維持黃字黑邊", "齒輪改深色圓形", "巴士頁淺灰底，空白卡用紅字", "最近同下一班改灰色"]],
+      ["1.0.13", ["剷走開發者試聲掣", "之後程式唔再發聲"]],
+      ["1.0.12", ["加「關於本設備」，二維碼打開呢一頁", "首頁更表句子可以開或者關", "巴士號碼加粗，站名放中間，時間放右邊"]],
+      ["1.0.11", ["晚上十點到朝早六點自動轉暗，點一下會光返", "更表句子改黃字黑邊", "巴士卡左邊放路線同站，右邊放時間", "可以剷走唔用嘅更號，亦可以加自訂"]],
+      ["1.0.10", ["加入城巴。同九巴一齊行嘅路線會合併最近兩班", "署名 NurseForgeHK 獨力製作"]],
+      ["1.0.8", ["九巴搜尋加入第 2、第 3 種走線", "強制更新畫面顯示而家同最新版本", "沒有發布 1.0.9"]],
+      ["1.0.7", ["落雨改為機率：低、中低、中、中高、高", "設定頂部放「輸入更表」"]],
+      ["1.0.6", ["天氣保留簡短狀況，落雨另加一行", "更表句子移到巴士掣旁邊"]],
+      ["1.0.5", ["時鐘每分鐘先轉一次", "巴士掣放左下角"]],
+      ["1.0.4", ["更表句子縮小，放右下角", "只顯示今日天氣"]],
+      ["1.0.3", ["撳一日就輪更號", "加入嶼巴路線"]],
+      ["1.0.2", ["加入更表，可以填返工日子"]],
+      ["1.0.1", ["晚上七點到朝早六點，時間版背景轉深紫色"]],
+      ["1.0.0", ["第一個可以自己上網檢查同更新嘅版本"]]
+    ];
+
+    const layer = document.getElementById("dev-layer");
+    const lock = document.getElementById("dev-lock");
+    const log = document.getElementById("dev-log");
+    const dots = [...document.querySelectorAll("#dev-pin i")];
+    const msg = document.getElementById("dev-msg");
+    const entered = [];
+
+    function paintPin() {
+      dots.forEach((dot, index) => {
+        dot.textContent = entered[index] ? "•" : "";
+        dot.classList.toggle("on", index < entered.length);
+      });
+    }
+
+    function showLog() {
+      lock.hidden = true;
+      log.hidden = false;
+      sessionStorage.setItem("desk-dev", "1");
+    }
+
+    function showLock() {
+      lock.hidden = false;
+      log.hidden = true;
+      entered.length = 0;
+      msg.textContent = "";
+      paintPin();
+    }
+
+    function openDev() {
+      layer.hidden = false;
+      if (sessionStorage.getItem("desk-dev") === "1") showLog();
+      else showLock();
+    }
+
+    function closeDev() { layer.hidden = true; }
+
+    function pushDigit(digit) {
+      if (entered.length >= 4) return;
+      entered.push(digit);
+      msg.textContent = "";
+      paintPin();
+      if (entered.length < 4) return;
+      if (entered.join("") === pinCode) showLog();
+      else {
+        msg.textContent = "密碼錯誤";
+        entered.length = 0;
+        paintPin();
+      }
+    }
+
+    document.getElementById("dev-pad").innerHTML = [1, 2, 3, 4, 5, 6, 7, 8, 9, "刪除", 0, ""].map((key) => {
+      if (key === "") return "<span></span>";
+      return `<button type="button" data-key="${key}">${key}</button>`;
+    }).join("");
+
+    document.getElementById("dev-versions").innerHTML = releases.map(([version, notes]) => `
+      <article>
+        <h3>${version}</h3>
+        <ul>${notes.map((note) => `<li>${note}</li>`).join("")}</ul>
+      </article>
+    `).join("");
+
+    document.getElementById("dev-open").addEventListener("click", openDev);
+    document.getElementById("dev-close").addEventListener("click", closeDev);
+    document.getElementById("dev-back").addEventListener("click", closeDev);
+    document.getElementById("dev-pad").addEventListener("click", (event) => {
+      const key = event.target.dataset.key;
+      if (!key) return;
+      if (key === "刪除") {
+        entered.pop();
+        msg.textContent = "";
+        paintPin();
+        return;
+      }
+      pushDigit(key);
+    });
+  </script>
 </body>
 </html>
