@@ -91,7 +91,7 @@
     li { margin: 0 0 6px; }
     .bus {
       display: grid;
-      grid-template-columns: 64px 1fr 84px;
+      grid-template-columns: 52px 1fr 118px;
       gap: 8px;
       align-items: center;
       margin: 0 0 12px;
@@ -104,8 +104,9 @@
       font-size: 28px;
       line-height: 1;
     }
-    .bus .mid { font-size: 14px; }
-    .bus .time { text-align: right; font-weight: 700; }
+    .bus .mid, .bus .time { font-size: 14px; line-height: 1.4; }
+    .bus .time { text-align: right; font-weight: 700; white-space: nowrap; }
+    section { scroll-margin-top: 16px; }
     footer {
       margin-top: 20px;
       color: var(--muted);
