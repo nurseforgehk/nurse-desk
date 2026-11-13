@@ -63,13 +63,15 @@
       color: var(--rail);
     }
     .rail p.group {
-      margin: 12px 0 0;
-      padding: 0 12px;
-      font-size: 14px;
-      font-weight: 700;
+      margin: 14px 4px 2px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .22);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
       line-height: 1.2;
-      letter-spacing: .04em;
-      opacity: .72;
+      letter-spacing: .08em;
     }
     .rail button.sub {
       font-size: 22px;
@@ -108,6 +110,12 @@
       color: var(--muted);
       font-size: 14px;
     }
+    .byline {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .byline a { color: inherit; }
     .dev-layer {
       position: fixed;
       inset: 0;
@@ -168,7 +176,7 @@
       .rail { padding: 14px 8px 10px; }
       .rail p { font-size: 16px; }
       .rail button { font-size: 20px; padding: 10px 8px; }
-      .rail p.group { margin-top: 8px; padding: 0 8px; font-size: 12px; }
+      .rail p.group { margin: 10px 0 2px; padding: 4px 8px; font-size: 15px; letter-spacing: .04em; }
       .rail button.sub { font-size: 18px; padding: 8px 8px 8px 12px; }
       .stage { padding: 20px 16px 20px; }
       h1, h2 { font-size: 24px; }
@@ -196,10 +204,12 @@
     <main class="stage">
       <section class="panel" id="intro">
         <h1>夠鐘返工資訊站</h1>
-        <p>一塊插電就用嘅小螢幕，俾返更嘅護士同輪班打工仔，出門之前一眼睇晒時間、天氣、更號，同自己常坐嘅巴士仲有幾耐到。</p>
-        <p>唔使解鎖電話，亦唔使裝 App。揀網絡、打密碼、填更表、揀車站，全部都喺塊螢幕上面用手指撳。</p>
-        <p>呢部機係 NurseForgeHK 獨力製作。護士鍛造工場仲有其他產品可以睇。</p>
+        <p>一塊插電就用得嘅電子小螢幕，俾返shift嘅護士，甚至其他打工仔，出門之前一眼睇晒時間、天氣、更號，同自己常坐嘅巴士仲有幾耐到。</p>
+        <p>唔使再不斷解鎖電話，亦唔使再喺電話打開唔同App，返工出門之前解放雙手。</p>
+        <p>呢部機係 NurseForgeHK 獨力製作。由電路板，3D打印外殼，寫程式，一手包辦。</p>
+        <p>護士鍛造工場仲有其他產品，有興趣可以過去睇睇。</p>
         <p><a class="shop" href="https://nurseforge-web.vercel.app">去睇護士鍛造工場</a></p>
+        <p class="byline">by <a href="https://www.instagram.com/nursingmeme_hk/">@nursingmeme_hk</a> <a href="https://www.instagram.com/nurseforgehk/">@nurseforgehk</a></p>
       </section>
 
       <section class="panel" id="start" hidden>
