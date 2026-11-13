@@ -62,6 +62,19 @@
       background: #fff;
       color: var(--rail);
     }
+    .rail p.group {
+      margin: 12px 0 0;
+      padding: 0 12px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: .04em;
+      opacity: .72;
+    }
+    .rail button.sub {
+      font-size: 22px;
+      padding: 8px 12px 8px 22px;
+    }
     .dev-link {
       margin-top: auto;
       font-size: 14px;
@@ -155,6 +168,8 @@
       .rail { padding: 14px 8px 10px; }
       .rail p { font-size: 16px; }
       .rail button { font-size: 20px; padding: 10px 8px; }
+      .rail p.group { margin-top: 8px; padding: 0 8px; font-size: 12px; }
+      .rail button.sub { font-size: 18px; padding: 8px 8px 8px 12px; }
       .stage { padding: 20px 16px 20px; }
       h1, h2 { font-size: 24px; }
     }
@@ -166,9 +181,12 @@
       <p>夠鐘返工資訊站</p>
       <button type="button" data-panel="intro" aria-current="page">簡介</button>
       <button type="button" data-panel="start">開機</button>
-      <button type="button" data-panel="weather">天氣</button>
-      <button type="button" data-panel="minimal">極簡</button>
-      <button type="button" data-panel="bus">巴士</button>
+      <p class="group">基本</p>
+      <button class="sub" type="button" data-panel="std-weather">天氣</button>
+      <button class="sub" type="button" data-panel="std-bus">巴士</button>
+      <p class="group">極簡</p>
+      <button class="sub" type="button" data-panel="min-weather">天氣</button>
+      <button class="sub" type="button" data-panel="min-bus">巴士</button>
       <button type="button" data-panel="shift">更表</button>
       <button type="button" data-panel="settings">設定</button>
       <button type="button" data-panel="power">睡眠</button>
@@ -196,9 +214,9 @@
         </ul>
       </section>
 
-      <section class="panel" id="weather" hidden>
-        <h2>天氣版</h2>
-        <p>資料來自香港天文台，範圍係全港，只供參考。</p>
+      <section class="panel" id="std-weather" hidden>
+        <h2>基本天氣</h2>
+        <p>未開極簡模式嗰陣，連到網絡就會見到呢一版。資料來自香港天文台，範圍係全港，只供參考。</p>
         <ul>
           <li>畫面有時間、氣溫、相對濕度、天氣圖，同「今日落雨機率」。</li>
           <li>落雨機率係五個等級：低、中低、中、中高、高。畫面唔會顯示百分比。</li>
@@ -207,32 +225,44 @@
           <li>晚上七點到朝早六點，底色會轉深。</li>
           <li>Wi-Fi 斷咗之後，氣溫同濕度會改做「--」。</li>
           <li>右上角螺絲批入設定。旁邊嘅 Wi-Fi 圓形可以睇訊號，撳落可以重新揀網絡。斷線會加一條紅斜線。</li>
-          <li>左下角「巴士」去巴士版。右下角「今日」「聽日」顯示更號，要喺更表開住先會見到。</li>
+          <li>左下角「巴士」去基本巴士。右下角「今日」「聽日」顯示更號，要喺更表開住先會見到。</li>
         </ul>
       </section>
 
-      <section class="panel" id="minimal" hidden>
-        <h2>極簡模式</h2>
-        <p>喺設定入面開「極簡模式」，字會放大，遠少少都睇到。天氣版同巴士版都適用。再撳「關閉極簡」就返去標準版。</p>
-        <ul>
-          <li>中間係時間。左上係氣溫。右上係落雨等級同天氣圖。</li>
-          <li>左下係「巴士」，上面有日子，例如 28/4。</li>
-          <li>底中間係「今」同「明」。</li>
-          <li>右下係 Wi-Fi 同設定，上面寫星期，例如星期六。</li>
-          <li>朝早用藍色分格。晚上七點到朝早六點改用紫色。</li>
-          <li>極簡巴士版會放大路線號碼，仍然顯示最近一班同下一班。</li>
-        </ul>
-      </section>
-
-      <section class="panel" id="bus" hidden>
-        <h2>巴士版</h2>
+      <section class="panel" id="std-bus" hidden>
+        <h2>基本巴士</h2>
         <p>最多可以設定 3 條常坐路線。到站時間來自運輸署公開數據，係估計，大約每 30 秒更新一次，唔係逐秒倒數。</p>
         <ul>
           <li>撳未設定嗰一行，打路線號碼，再揀方向同上車站。</li>
           <li>部機會先搵九巴。九巴冇呢條，先至搵嶼巴。仍然冇，先至搵城巴。</li>
-          <li>每一行顯示最近一班同下一班，以分鐘計。少過一分鐘會寫「即將」。</li>
+          <li>每一行左邊係路線號碼，中間係方向同站名，右邊係最近一班同下一班，以分鐘計。少過一分鐘會寫「即將」。</li>
           <li>Wi-Fi 斷咗之後，會改做「未更新」。</li>
-          <li>左下角可以返去天氣版。右下角仍然有 Wi-Fi 同設定。</li>
+          <li>左下角「天氣」返去基本天氣。中間係而家時間。右下角仍然有 Wi-Fi 同設定。</li>
+        </ul>
+      </section>
+
+      <section class="panel" id="min-weather" hidden>
+        <h2>極簡天氣</h2>
+        <p>喺設定入面開「極簡模式」，天氣版會改成大字。再撳「關閉極簡」就返去基本天氣。</p>
+        <ul>
+          <li>中間係時間。左上係氣溫。右上係落雨等級同天氣圖。</li>
+          <li>落雨等級同樣係低、中低、中、中高、高。</li>
+          <li>左下係「巴士」，上面有日子，例如 28/4。撳「巴士」會去極簡巴士。</li>
+          <li>底中間係「今」同「明」。未填更號會顯示「--」。</li>
+          <li>右下係 Wi-Fi 同設定，上面寫星期，例如星期六。</li>
+          <li>朝早用藍色分格。晚上七點到朝早六點改用紫色。</li>
+          <li>Wi-Fi 斷咗之後，氣溫會改做「--」。</li>
+        </ul>
+      </section>
+
+      <section class="panel" id="min-bus" hidden>
+        <h2>極簡巴士</h2>
+        <p>開咗極簡模式之後，巴士版都會放大。設定路線同基本巴士一樣。</p>
+        <ul>
+          <li>三行路線會放大號碼，每一行仍然顯示最近一班同下一班，以分鐘計。少過一分鐘會寫「即將」。</li>
+          <li>更新到站時間嗰陣，唔會成版閃一次。</li>
+          <li>Wi-Fi 斷咗之後，會改做「未更新」。</li>
+          <li>左下角可以返去極簡天氣。右下角仍然有 Wi-Fi 同設定。</li>
         </ul>
       </section>
 
@@ -242,7 +272,7 @@
           <li>設定第一格就係「輸入更表」。可以填今個月同下個月。</li>
           <li>更表打橫排七日。撳某一日，就會輪去下一個更號。</li>
           <li>已有 P、A、N、D、O、AL。可以再加自己嘅代號，只可以係英文字母同數字，最多三個字，例如 OFF。</li>
-          <li>標準天氣版右下角嘅「今日」「聽日」，要喺呢頁開住先會顯示。極簡模式會一直顯示「今」同「明」。</li>
+          <li>基本天氣右下角嘅「今日」「聽日」，要喺呢頁開住先會顯示。極簡天氣會一直顯示「今」同「明」。</li>
         </ul>
       </section>
 
@@ -290,7 +320,14 @@
   </div>
 
   <script>
-    const aliases = { update: "settings", keep: "power", workshop: "intro" };
+    const aliases = {
+      update: "settings",
+      keep: "power",
+      workshop: "intro",
+      weather: "std-weather",
+      bus: "std-bus",
+      minimal: "min-weather"
+    };
     const buttons = [...document.querySelectorAll("[data-panel]")];
     const known = new Set(buttons.map((button) => button.dataset.panel));
 
